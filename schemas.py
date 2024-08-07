@@ -1,6 +1,10 @@
 from typing import List, Union
 from pydantic import BaseModel
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
 class ItemBase(BaseModel):
     title: str
     description: Union[str, None] = None

@@ -1,7 +1,8 @@
 # FastAPIPRO
 
 UVICORN= SERVER WHICH RUN WEB APPLICATION TO API AND CONNECT
-
+please check the path bindu and run api
+--command--
 UVICORN file_name : app --reload
 
 ex- uvicorn main:app --reload
@@ -21,3 +22,6 @@ O/p:=
 {"name":"Milk","price":2.44,"brand":"regular"}
 
 the process of creating a FastAPI blog application integrated with a MySQL database, using SQLAlchemy for database interaction. You'll learn to define data models with Pydantic and how to use MySQL Workbench for database management. Finally, we'll show you how to serve your application using uvicorn.
+
+backend: uvicorn 
+frontend : node pakage.(react)
