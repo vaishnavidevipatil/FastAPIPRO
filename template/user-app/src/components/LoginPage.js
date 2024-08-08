@@ -1,8 +1,8 @@
 // src/components/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../api/apiClient'; // Adjust the path if needed
-import '../app.css'; // Import the CSS file
+import apiClient from '../api/apiClient';
+import '../app.css'; 
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({
@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,24 +28,20 @@ const LoginPage = () => {
     setSuccess(null);
 
     try {
-      // Call the login API with credentials
-      const response = await apiClient.post('/login/', credentials);
-
-      // Handle response based on status
-      if (response.status === 200) { // Assuming 200 means login success
+      const response = await apiClient.post('/token/', credentials);
+      if (response.status === 200) {
         setSuccess('Logged in successfully!');
         setCredentials({
           email: '',
           password: '',
         });
-        navigate('/home'); // Redirect to home page on successful login
-      } else if (response.status === 401) { // Assuming 401 means unauthorized
+        navigate('/home'); 
+      } else if (response.status === 401) {
         setError('Invalid email or password. Please try again.');
       } else {
         setError('Unexpected response. Please try again.');
       }
     } catch (err) {
-      // Handle different error cases
       if (err.response) {
         if (err.response.status === 401) {
           setError('Invalid email or password. Please try again.');
@@ -61,36 +57,40 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={credentials.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={credentials.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      {success && <div className="message success">{success}</div>}
-      {error && <div className="message error">{error}</div>}
+      {/* <img src={backgroundImage} alt="Background" className="background-image" /> */}
+      <div className="login-form">
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={credentials.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={credentials.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        {success && <div className="message success">{success}</div>}
+        {error && <div className="message error">{error}</div>}
+      </div>
     </div>
   );
 };
+
 
 export default LoginPage;

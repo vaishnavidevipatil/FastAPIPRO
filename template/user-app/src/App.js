@@ -4,22 +4,14 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegisterPage from './components/RegisterPage';
 import LoginPage from './components/LoginPage';
-import apiClient from './api/apiClient'; // Adjust path if needed
 import "./app.css"
+import HomePage from './components/HomePage';
 
 function App() {
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await apiClient.get('/register/');
-        console.log(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  //   fetchData();
+   }, 
+  []);
 
   return (
     <Router>
@@ -28,6 +20,8 @@ function App() {
         <Route path="/" element={<Navigate to="/register" />} /> // Redirect to /login
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/home" element= {<HomePage />} />
+
       </Routes>
     </Router>
   );
