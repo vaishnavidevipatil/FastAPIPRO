@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api/apiClient'; // Correct path
 import '../app.css'; // Import the CSS file
+import './registerpage.css'
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });

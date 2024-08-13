@@ -3,71 +3,21 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-image: url(./images/stock-market-economy-investment-financial-concept.jpg);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  background-size: cover; /* Ensures the image covers the entire background */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-attachment: fixed;
 }
-
-/* Shared Styles for Form Pages */
-.form-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-.form-container h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.form-container form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.form-container label {
-  font-weight: bold;
-  color: #555;
-}
-
-.form-container input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.form-container button {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: #28a745;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.form-container button:hover {
-  background-color: #218838;
-}
-
-.form-container p {
-  color: #e74c3c;
-  text-align: center;
-  margin-top: -10px;
-}
-
 
 /* General Styles for the App */
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  margin-right: 950px;
+  margin-top: 250px;
+  padding: 0%;
   background-color: #f0f0f0;
 }
 
@@ -143,20 +93,28 @@ body {
 /* src/components/HomePage.css */
 .HomePage{
   font-size: larger;
+  text-align: center;
+  color: #b3ddf8;
+  font-weight: bolder;
+
 }
 
+.HomePage h1{
+  font-size: 100px;
+  text-align: center;
+  margin-top: 180px;
+  row-gap: 2%;
+}
 /* src/app.css */
 .login-container {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 40vw;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #708ab0;
 }
-
-
 
 .login-form {
   position: relative;
