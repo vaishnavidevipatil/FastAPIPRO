@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api/apiClient';
-import '../app.css'; 
+import '../app.css';
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({
@@ -11,8 +11,7 @@ const LoginPage = () => {
   });
 
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,17 +24,14 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
 
     try {
       const response = await apiClient.post('/token/', credentials);
       if (response.status === 200) {
-        setSuccess('Logged in successfully!');
-        setCredentials({
-          email: '',
-          password: '',
-        });
-        navigate('/home'); 
+        const token = response.data.access_token;
+        console.log('Access Token:', token); // print access token in console
+        localStorage.setItem('access_token', token);
+        navigate('/home');
       } else if (response.status === 401) {
         setError('Invalid email or password. Please try again.');
       } else {
@@ -85,12 +81,10 @@ const LoginPage = () => {
           </div>
           <button type="submit">Login</button>
         </form>
-        {success && <div className="message success">{success}</div>}
         {error && <div className="message error">{error}</div>}
       </div>
     </div>
   );
 };
-
 
 export default LoginPage;

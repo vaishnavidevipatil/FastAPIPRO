@@ -1,6 +1,6 @@
 .form-container {
   max-width: 400px;
-  margin: 50px auto;
+  margin: 100px auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -30,6 +30,7 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
+  margin-bottom: auto;
 }
 
 .form-container button {

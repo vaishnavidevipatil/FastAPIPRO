@@ -1,17 +1,17 @@
-from auth import authenticate_user,create_access_token, get_password_hash
+
+import crud,model, schemas
+
+from auth import authenticate_user,create_access_token, get_password_hash, verify_token
 
 from typing  import List
 from datetime import timedelta
 
-from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import FastAPI, Depends, HTTPException, status
+from typing_extensions import Annotated
 from sqlalchemy.orm import Session
 
-
-import crud,model, schemas
-
+from schemas import UserBase
 from database import SessionLocal, engine
-
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
@@ -95,3 +95,7 @@ def create_item_for_user(
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
+
+@app.post("/homepage")
+async def homepage(username: Annotated[UserBase, Depends(verify_token)]):
+    return {"message": f"Welcome to homepage {username}"}
