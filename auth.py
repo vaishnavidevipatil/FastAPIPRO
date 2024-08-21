@@ -65,8 +65,8 @@ async def verify_token(token: Annotated[str, Depends(oauth2_scheme)]):
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        print(token)
-        print(payload)
+        # print(token)
+        # print(payload)
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception

@@ -1,5 +1,5 @@
 
-import crud,model, schemas
+import crud,model, schemas, dependency
 
 from auth import authenticate_user,create_access_token, get_password_hash, verify_token
 
@@ -37,7 +37,9 @@ def get_db():
     finally:
         db.close()
 
-
+@app.get("/users")
+def read_users(current_user: model.User = Depends(dependency.get_current_user), db: Session = Depends(get_db)):
+    users = crud.get_users(db)
 
 @app.post("/token", response_model=schemas.Token)
 def login_for_access_token(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -96,6 +98,11 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
 
-@app.post("/homepage")
-async def homepage(username: Annotated[UserBase, Depends(verify_token)]):
-    return {"message": f"Welcome to homepage {username}"}
+@app.get("/users/")
+def read_users(current_user: model.User = Depends(dependency.get_current_user), db: Session = Depends(get_db)):
+    users = crud.get_users(db)
+    return users
+
+@app.post("/homepage/")
+def get_welcome_message(current_user: model.User = Depends(dependency.get_current_user)):
+    return {"message": "Welcome to the homepage!"}
