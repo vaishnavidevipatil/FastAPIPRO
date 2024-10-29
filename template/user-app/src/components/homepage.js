@@ -9,18 +9,8 @@ function HomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('access_token'); // Get the access token from local storage
-        if (!token) {
-          throw new Error('Access token not found in local storage.');
-        }
-
         // Fetch welcome message
-        const messageResponse = await apiClient.post('/homepage', null, {
-          headers: {
-            'Authorization': `Bearer ${token}`, // Send token in the header
-          },
-        });
-
+        const messageResponse = await apiClient.post('/homepage');
         if (messageResponse.status === 200) {
           setMessage(messageResponse.data.message);
         } else {
@@ -28,23 +18,18 @@ function HomePage() {
         }
 
         // Fetch users
-        const usersResponse = await apiClient.get('/users', {
-          headers: {
-            'Authorization': `Bearer ${token}`, // Send token in the header
-          },
-        });
-
+        const usersResponse = await apiClient.get('/users');
         if (usersResponse.status === 200) {
+          console.log('Users fetched:', usersResponse.data);  // Log fetched users for debugging
           setUsers(usersResponse.data);
         } else {
           setError('Failed to fetch users.');
         }
-
       } catch (error) {
         setError('An error occurred. Please try again.');
-      }
+        console.error(error);  // Log the actual error for debugging
+      }   
     };
-
     fetchData();
   }, []);
 
@@ -52,10 +37,10 @@ function HomePage() {
     <div className="HomePage">
       <header className="HomePage-header">
         <h2>Homepage</h2>
-        {message ? <p>{message}</p> : <p>{error}</p>}
-        <p>This is a simple home page component.</p>
-      </header>
-      <div>
+        <>
+          {message ? <p>{message}</p> : error && <p>{error}</p>}
+          <p>This is a simple home page component.</p>
+          <div>
         <table>
           <thead>
             <tr>
@@ -73,6 +58,8 @@ function HomePage() {
           </tbody>
         </table>
       </div>
+        </>
+      </header>
     </div>
   );
 }

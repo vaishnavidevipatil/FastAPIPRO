@@ -4,6 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from urllib.parse import quote_plus
 
+
+# Connection to database
 username = 'root'
 password = quote_plus('Mysql@2024')
 host = 'localhost'

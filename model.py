@@ -1,5 +1,7 @@
 import uuid
 
+
+# This database model created in python which created table
 from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from urllib.parse import quote_plus
 from sqlalchemy.orm import relationship

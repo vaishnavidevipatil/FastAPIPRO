@@ -27,8 +27,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 # Dependency
 def get_db():
     db = SessionLocal()
@@ -105,4 +103,4 @@ def read_users(current_user: model.User = Depends(dependency.get_current_user), 
 
 @app.post("/homepage/")
 def get_welcome_message(current_user: model.User = Depends(dependency.get_current_user)):
-    return {"message": "Welcome to the homepage!"}
+    return {"message": "Welcome to the homepage!", "users":current_user.email}

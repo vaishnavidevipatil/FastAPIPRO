@@ -11,9 +11,6 @@ from database import SessionLocal, engine
 
 app = FastAPI()
 
-
-
-
 class Item(BaseModel):
     name:str
     price: float

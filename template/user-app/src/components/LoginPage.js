@@ -1,8 +1,8 @@
-// src/components/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api/apiClient';
 import '../app.css';
+import {login} from './AuthServer'
 
 const LoginPage = () => {
   const [credentials, setCredentials] = useState({
@@ -11,6 +11,7 @@ const LoginPage = () => {
   });
 
   const [error, setError] = useState(null);
+  
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,12 +25,12 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-
+    
     try {
       const response = await apiClient.post('/token/', credentials);
       if (response.status === 200) {
         const token = response.data.access_token;
-        console.log('Access Token:', token); // print access token in console
+        console.log('Access Token:', token); // Print access token in console
         localStorage.setItem('access_token', token);
         navigate('/home');
       } else if (response.status === 401) {
@@ -48,12 +49,13 @@ const LoginPage = () => {
         setError('Failed to log in. Please check your credentials.');
       }
       console.error('Error during login:', err);
+    
+     // Reset loading state
     }
   };
 
   return (
     <div className="login-container">
-      {/* <img src={backgroundImage} alt="Background" className="background-image" /> */}
       <div className="login-form">
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
@@ -79,7 +81,8 @@ const LoginPage = () => {
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit">Login
+          </button>
         </form>
         {error && <div className="message error">{error}</div>}
       </div>
