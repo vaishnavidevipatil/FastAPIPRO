@@ -11,9 +11,6 @@ from database import SessionLocal, engine
 
 app = FastAPI()
 
-
-
-
 class Item(BaseModel):
     name:str
     price: float
@@ -53,12 +50,8 @@ def get_item(item_id: int = Path(..., description="The ID of the item you'd like
     return inventory[item_id]
     # return {"error": "Item not found"}
 
-# @app.get("/get-by-name/{item_id}")
-# def get_item_by_name(*,item_id: int, name: Optional[str] = None, test: int = 0):
-#     for item_id in inventory:
-#         if inventory[item_id]["name"] == name:
-#             return inventory[item_id]
-#     return {"error": "Data not found"}
+
+
 @app.get("/get-by-name")
 def get_item(name:str= Query(None, title="name", description="name of item"), test: int = 0):
     for item_id in inventory:

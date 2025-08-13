@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiClient from '../api/apiClient';
+
 import '../app.css'; 
 
 const LoginPage = () => {
@@ -9,10 +10,11 @@ const LoginPage = () => {
     email: '',
     password: '',
   });
-
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const navigate = useNavigate(); 
+
+  const [loading, setLoading] = useState(false); // Loading state
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,12 +27,14 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+
     setSuccess(null);
 
+    setLoading(true); // Set loading to true during API call
+
     try {
-      const response = await apiClient.post('/token/', credentials);
-      if (response.status === 200) {
-        setSuccess('Logged in successfully!');
+      const response = await apiClient.post('/token', credentials); // Removed trailing slash
+      if (response.status === 200) {        setSuccess('Logged in successfully!');
         setCredentials({
           email: '',
           password: '',
@@ -38,6 +42,12 @@ const LoginPage = () => {
         navigate('/home'); 
       } else if (response.status === 401) {
         setError('Invalid email or password. Please try again.');
+
+        const token = response.data.access_token;
+        console.log('Access Token:', token);
+        localStorage.setItem('access_token', token);
+        navigate('/home');
+
       } else {
         setError('Unexpected response. Please try again.');
       }
@@ -49,9 +59,12 @@ const LoginPage = () => {
           setError(err.response.data.detail || 'Failed to log in. Please check your credentials.');
         }
       } else {
-        setError('Failed to log in. Please check your credentials.');
+        setError('Network error. Please try again later.');
       }
       console.error('Error during login:', err);
+
+    } finally {
+
     }
   };
 
@@ -83,7 +96,13 @@ const LoginPage = () => {
               required
             />
           </div>
+
           <button type="submit">Login</button>
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
+
         </form>
         {success && <div className="message success">{success}</div>}
         {error && <div className="message error">{error}</div>}

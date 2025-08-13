@@ -2,23 +2,27 @@ from sqlalchemy.orm import Session
 
 import model, schemas
 
-def get_user(db: Session, user_id: int):
-    return db.query(model.User).filter(model.User.id == user_id).first()
-
 def get_user_by_email(db: Session, email: str):
+    if not email:
+        return None
     return db.query(model.User).filter(model.User.email == email).first()
 
-def get_users(db: Session, skip: int = 0, limit: int = 100):
+def get_users(db: Session, skip: int = 0, limit: int = 10):
     return db.query(model.User).offset(skip).limit(limit).all()
 
-
 def create_user(db: Session, user: schemas.UserCreate):
-    db_user = model.User(email=user.email, hashed_password= user.password)
+    db_user = model.User(email=user.email,name= user.name, password=user.password)  # Already hashed
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
+# def create_user(db: Session, user: schemas.UserCreate):
+#     db_user = model.User(email=user.email, hashed_password= user.password)
+#     db.add(db_user)
+#     db.commit()
+#     db.refresh(db_user)
+#     return db_user
 
 def get_items(db: Session, skip: int = 0, limit: int = 100):
     return db.query(model.Item).offset(skip).limit(limit).all()
@@ -30,3 +34,10 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+def create_user(db: Session, user: schemas.UserCreate):
+    db_user = model.User(email=user.email, hashed_password= user.password)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user

@@ -2,11 +2,12 @@
 import { Navigate } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import RegisterPage from './components/RegisterPage';
-import LoginPage from './components/LoginPage';
+import Register from './components/Register';
+import LoginPage from './components/Login';
 import "./app.css"
 import HomePage from './components/HomePage';
-
+import "./app.css";
+import Home from './components/Home';
 function App() {
   useEffect(() => {
   //   fetchData();
@@ -15,14 +16,16 @@ function App() {
 
   return (
     <Router>
-      <Routes>
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
 
-        <Route path="/" element={<Navigate to="/register" />} /> // Redirect to /login
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element= {<HomePage />} />
+        {/* Protected Route Example */}
+        <Route path="/dashboard" element={<Dashboard />} />
 
-      </Routes>
+        {/* Redirect unknown routes */}
+        <Route path="*" element={<Navigate to="/signin" />} />
+     
+
     </Router>
   );
 }

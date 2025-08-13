@@ -1,5 +1,10 @@
 # FastAPIPRO
 
+react app - user-app := npm run start  
+# to start the development server
+# or
+npm start 
+
 UVICORN= SERVER WHICH RUN WEB APPLICATION TO API AND CONNECT
 please check the path bindu and run api
 --command--
@@ -25,3 +30,5 @@ the process of creating a FastAPI blog application integrated with a MySQL datab
 
 backend: uvicorn 
 frontend : node pakage.(react)
+
+https://marketstack.com/    
