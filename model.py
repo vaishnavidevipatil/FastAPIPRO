@@ -10,7 +10,7 @@ from database import Base
 
 class User(Base):
     __tablename__ = "users"
-
+    name= Column(String(64), index=True)
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(64), unique=True, index=True)
     hashed_password = Column(String(255))

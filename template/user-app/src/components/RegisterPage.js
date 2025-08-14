@@ -1,112 +1,137 @@
-// src/components/RegisterPage.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import signupImage from "../images/signup-image.jpg";
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../api/apiClient'; // Correct path
-import '../app.css'; // Import the CSS file
-import './registerpage.css'
+import apiClient from "../api/apiClient"; // Make sure this is set up for axios
 
-const RegisterPage = () => {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+export default function RegisterPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    pass: "",
+    re_pass: "",
+    agreeTerm: false
+  });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
     }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setError(null);
     setSuccess(null);
 
+    if (!formData.agreeTerm) {
+      setError("You must agree to the terms.");
+      return;
+    }
+    if (formData.pass !== formData.re_pass) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
-      const response = await apiClient.post('/user/', formData);
-      switch (response.status===400) {
-        case 201:
-          setSuccess('Registration successful!');
-          localStorage.setItem('isRegistered', 'true');
-          navigate('/login'); // Redirect to login page
-          break;
-        case 400:
-          if (response.data.detail === 'Email already registered') {
-            setError('User already exists. Redirecting to login...');
-            navigate('/login'); // Immediately redirect if user already exists
-          } else {
-            setError(response.data.detail || 'Bad request. Please check your input.');
-          }
-          break;
-        default:
-          setError('Unexpected response. Please try again.');
-      }
-    } catch (error) {
-      if (error.response) {
-        // Only if response is present in error
-        switch (error.response.status) {
-          case 400:
-            if (error.response.data.detail === 'Email already registered') {
-              setError('User already exists. Redirecting to login...');
-              navigate('/login'); 
-            } else {
-              setError(error.response.data.detail || 'Bad request. Please check your input.');
-            }
-            break;
-          default:
-            setError('Unexpected response. Please try again.');
-        }
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.pass
+      };
+      const response = await apiClient.post("/user", payload);
+      if (response.status === 200) {
+        setSuccess("Registration successful! Redirecting to login...");
+        setTimeout(() => navigate("/login"), 1500);
       } else {
-        setError('An unexpected error occurred. Please try again.');
+        setError("Registration failed. Please try again.");
       }
-      console.error('Error during registration:', error);
+    } catch (err) {
+      setError(
+        err.response?.data?.detail || "Registration failed. Please try again."
+      );
     }
   };
 
   return (
-    <div className="form-container register-container">
-      <h1>Register</h1>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <div>
-            <input
-              type="checkbox"
-              id="show-password"
-              checked={showPassword}
-              onChange={() => setShowPassword(!showPassword)}
-            />
-            <label htmlFor="show-password">Show password</label>
+     <div className="main">
+      <section className="signup">
+        <div className="container">
+          <div className="signup-content">
+            <div className="signup-form">
+              <h2 className="form-title">Sign up</h2>
+              <form className="register-form" id="register-form" onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="name"><i className="zmdi zmdi-account material-icons-name"></i></label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email"><i className="zmdi zmdi-email"></i></label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Your Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="pass"><i className="zmdi zmdi-lock"></i></label>
+                  <input
+                    type="password"
+                    name="pass"
+                    placeholder="Password"
+                    value={formData.pass}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="re_pass"><i className="zmdi zmdi-lock-outline"></i></label>
+                  <input
+                    type="password"
+                    name="re_pass"
+                    placeholder="Repeat your password"
+                    value={formData.re_pass}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="checkbox"
+                    name="agreeTerm"
+                    checked={formData.agreeTerm}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="agree-term" className="label-agree-term">
+                    I agree all statements in <a href="#">Terms of service</a>
+                  </label>
+                </div>
+                <div className="form-group form-button">
+                  <input type="submit" className="form-submit" value="Register" />
+                </div>
+                {error && <div style={{ color: "red" }}>{error}</div>}
+                {success && <div style={{ color: "green" }}>{success}</div>}
+              </form>
+            </div>
+            <div className="signup-image">
+              <figure>
+                <img src={signupImage} alt="sign up" />
+              </figure>
+              <a href="/login" className="signup-image-link">I am already member</a>
+            </div>
           </div>
         </div>
-        <button type="submit">Register</button>
-      </form>
+      </section>
     </div>
   );
-};
-
-export default RegisterPage;
+}
