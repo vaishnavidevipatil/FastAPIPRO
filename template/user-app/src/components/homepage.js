@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../api/apiClient';
 
+
 function HomePage() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');

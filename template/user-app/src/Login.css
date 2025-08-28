@@ -1,0 +1,377 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f6f5f7;
+  font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Main container styles */
+.main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section container */
+.sign-in {
+  width: 100%;
+}
+
+/*++++++++++++++++++++++ Main container with responsive design **************/
+.container {
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+              0 10px 10px rgba(0, 0, 0, 0.22);
+  display: flex;
+  align-items: stretch;
+  min-height: 600px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Content wrapper */
+.signin-content {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Image section */
+.signin-image {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  text-align: center;
+}
+
+.signin-image figure {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signin-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.signup-image-link {
+  margin-top: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.signup-image-link:hover {
+  color: #ffd700;
+  transform: translateY(-2px);
+}
+
+/* Form section */
+.signin-form {
+  flex: 1;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+}
+
+.form-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Form styles */
+.register-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e1e5e9;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+/* Checkbox styling */
+.form-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.label-agree-term {
+  display: inline;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Submit button */
+.form-submit {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.form-submit:active {
+  transform: translateY(0);
+}
+
+/* Social login section */
+.social-login {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.social-label {
+  display: block;
+  margin-bottom: 15px;
+  color: #666;
+  font-size: 14px;
+}
+
+.socials {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.socials li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid #e1e5e9;
+}
+
+.socials li a:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Error and success messages */
+.error-message {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.success-message {
+  color: #155724;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    min-height: auto;
+    margin: 20px;
+  }
+  
+  .signin-content {
+    flex-direction: column;
+  }
+  
+  .signin-image {
+    flex: none;
+    height: 200px;
+    padding: 20px;
+  }
+  
+  .signin-image img {
+    max-height: 150px;
+  }
+  
+  .signin-form {
+    padding: 40px 30px;
+  }
+  
+  .form-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group input[type="password"],
+  .form-group input[type="email"] {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+  
+  .form-submit {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+  
+  .container {
+    margin: 10px;
+    border-radius: 15px;
+  }
+  
+  .signin-form {
+    padding: 30px 20px;
+  }
+  
+  .form-title {
+    font-size: 1.8rem;
+  }
+  
+  .signin-image {
+    height: 150px;
+    padding: 15px;
+  }
+  
+  .signin-image img {
+    max-height: 100px;
+  }
+  
+  .socials {
+    gap: 10px;
+  }
+  
+  .socials li a {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Animation for form elements */
+.form-group {
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.form-group:nth-child(1) { animation-delay: 0.1s; }
+.form-group:nth-child(2) { animation-delay: 0.2s; }
+.form-group:nth-child(3) { animation-delay: 0.3s; }
+.form-group:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects for better UX */
+.container:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+/* Focus states for accessibility */
+.form-group input:focus + label,
+.form-group input:focus ~ label {
+  color: #667eea;
+}
+
+/* Loading state for submit button */
+.form-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}

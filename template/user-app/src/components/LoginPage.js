@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import signinImage from "../images/signin-image.jpg";
 import { useNavigate } from 'react-router-dom';
 import apiClient from "../api/apiClient"; // Make sure you have this set up for axios
+import '../Login.css';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({

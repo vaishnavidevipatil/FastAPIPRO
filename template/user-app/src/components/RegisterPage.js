@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import signupImage from "../images/signup-image.jpg";
 import { useNavigate } from 'react-router-dom';
 import apiClient from "../api/apiClient"; // Make sure this is set up for axios
+import '../registerpage.css'
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -119,8 +120,8 @@ export default function RegisterPage() {
                 <div className="form-group form-button">
                   <input type="submit" className="form-submit" value="Register" />
                 </div>
-                {error && <div style={{ color: "red" }}>{error}</div>}
-                {success && <div style={{ color: "green" }}>{success}</div>}
+                {error && <div className="error-message">{error}</div>}
+                {success && <div className="success-message">{success}</div>}
               </form>
             </div>
             <div className="signup-image">
