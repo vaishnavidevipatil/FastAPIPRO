@@ -40,7 +40,7 @@ export default function LoginPage() {
       if (response.status === 200) {
         setSuccess("Login successful!");
         localStorage.setItem("access_token", response.data.access_token);
-        navigate("/homepage");
+        navigate("/dashboard");
       } else {
         setError("Unexpected response. Please try again.");
       }
